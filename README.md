@@ -39,7 +39,7 @@ vancouver-property-value-prediction/
 ## 🚀 How to run
 
 \```bash
-git clone https://github.com/TU-USUARIO/vancouver-property-value-prediction.git
+git clone https://github.com/racarrillo2/vancouver-property-value-prediction.git
 cd vancouver-property-value-prediction
 pip install -r requirements.txt
 streamlit run app/app.py
@@ -51,7 +51,7 @@ streamlit run app/app.py
 
 ## 👤 Author
 
-Tu Nombre — [LinkedIn](https://linkedin.com/in/tu-perfil) — Vancouver, BC
+Rafael Carrillo Mirabal — https://www.linkedin.com/in/rafael-carrillo-mirabal/?locale=en — Vancouver, BC
 
 ## 📝 License
 
