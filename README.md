@@ -8,8 +8,14 @@ Vancouver has one of the most expensive real estate markets in North America. Th
 
 ## 📊 Data source
 
-- **City of Vancouver Open Data Portal** — Property Tax Report
-  https://opendata.vancouver.ca/explore/dataset/property-tax-report/
+Property Tax Report from the City of Vancouver Open Data Portal.
+
+**Download instructions:**
+1. Go to https://opendata.vancouver.ca/explore/dataset/property-tax-report/
+2. Click on "Export" → download as Parquet
+3. Save the file as `data/raw/property_tax_report.parquet`
+
+The dataset is not included in this repository due to file size limits.
 
 ## 🛠️ Tech stack
 
@@ -51,7 +57,7 @@ streamlit run app/app.py
 
 ## 👤 Author
 
-Rafael Carrillo Mirabal — https://www.linkedin.com/in/rafael-carrillo-mirabal/?locale=en — Vancouver, BC
+Rafael Carrillo Mirabal — [LinkedIn](https://www.linkedin.com/in/rafael-carrillo-mirabal/?locale=en) — Vancouver, BC
 
 ## 📝 License
 

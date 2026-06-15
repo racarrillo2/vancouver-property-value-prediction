@@ -10,3 +10,4 @@ folium
 streamlit-folium
 joblib
 requests
+pyarrow
