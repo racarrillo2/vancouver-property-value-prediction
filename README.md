@@ -20,7 +20,7 @@ Vancouver has one of the most expensive real estate markets in North America. Th
 
 ## 📁 Project structure
 
-\```
+```
 vancouver-property-value-prediction/
 ├── data/
 │   ├── raw/             # Original data from City of Vancouver API
@@ -34,16 +34,16 @@ vancouver-property-value-prediction/
 ├── app/                 # Streamlit dashboard
 ├── requirements.txt
 └── README.md
-\```
+```
 
 ## 🚀 How to run
 
-\```bash
+```bash
 git clone https://github.com/racarrillo2/vancouver-property-value-prediction.git
 cd vancouver-property-value-prediction
 pip install -r requirements.txt
 streamlit run app/app.py
-\```
+```
 
 ## 📈 Results
 
