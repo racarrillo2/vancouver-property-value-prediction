@@ -2,9 +2,11 @@
 
 > End-to-end roadmap for the data science portfolio project. Tracks progress from data acquisition to final presentation.
 
+**Last updated:** End of Phase 2 (EDA complete)
+
 ---
 
-## 🟢 Phase 0 — Setup ✅
+## 🟢 Phase 0 — Setup ✅ COMPLETE
 
 - [x] Define main project idea and plan B
 - [x] Find and validate datasets (main + backup)
@@ -15,81 +17,97 @@
 
 ---
 
-## 🟡 Phase 1 — Data Acquisition & Initial Exploration
+## 🟢 Phase 1 — Data Acquisition & Initial Exploration ✅ COMPLETE
 
 **Goal:** understand what we have before touching anything.
 
-- [ ] Download CSV from Vancouver Property Tax Report portal
-- [ ] Save it as `data/raw/property_tax_report.csv`
-- [ ] Check file size and number of rows/columns
-- [ ] Create notebook `notebooks/00_data_understanding.ipynb`:
-  - [ ] Load CSV with pandas (likely `sep=";"`)
-  - [ ] `df.shape`, `df.dtypes`, `df.info()`, `df.describe()`
-  - [ ] Identify target variable (`current_land_value` + `current_improvement_value`)
-  - [ ] Identify candidate features (zoning, year built, neighbourhood, etc.)
-  - [ ] Document first observations in Markdown cells
+- [x] Download dataset from Vancouver Property Tax Report portal (**Parquet format**)
+- [x] Save it as `data/raw/property_tax_report.parquet`
+- [x] Check file size (134 MB on disk, 691 MB in RAM) and dimensions (1.55M rows × 30 columns)
+- [x] Create notebook `notebooks/00_data_understanding.ipynb`:
+  - [x] Load Parquet with pandas + pyarrow
+  - [x] `df.shape`, `df.dtypes`, `df.info()`, `df.describe()`
+  - [x] Compare numeric vs categorical describe (`include='object'`)
+  - [x] Identify target variable (`current_land_value` + `current_improvement_value`)
+  - [x] Identify candidate features (neighbourhood, zoning, legal_type, year_built)
+  - [x] Detect year columns stored as strings (need conversion later)
+  - [x] Detect high-null columns (`note`, `narrative_legal_line3-5`)
+  - [x] Document first observations in Markdown cells
 
-**Deliverable:** notebook with commented first look at the dataset.
+**Deliverable:** ✅ notebook with commented first look at the dataset.
 
 ---
 
-## 🟡 Phase 2 — Exploratory Data Analysis (EDA)
+## 🟢 Phase 2 — Exploratory Data Analysis (EDA) ✅ COMPLETE
 
-**Goal:** understand the story the data tells. This is what impresses recruiters the most.
+**Goal:** understand the story the data tells.
 
 📓 Notebook: `notebooks/01_eda.ipynb`
 
 ### 2.1 Univariate analysis
-- [ ] Price distribution (histogram + boxplot) — likely skewed
-- [ ] Outlier analysis ($10M+ properties, industrial lots, etc.)
-- [ ] Distribution of `year_built`, `tax_levy`, `zoning_classification`
-- [ ] Property count per neighbourhood (`neighbourhood_code`)
+- [x] Price distribution — linear, log, and boxplot
+- [x] Outlier analysis (filtered to 1st–99th percentile for clean visualization)
+- [x] Distribution per `report_year`
 
 ### 2.2 Bivariate analysis
-- [ ] Price vs. year built
-- [ ] Price vs. property type (`legal_type`: strata, land...)
-- [ ] Price vs. zoning
-- [ ] Price vs. neighbourhood (top 10 most expensive / cheapest)
-- [ ] Price evolution over the years (`report_year` / `tax_assessment_year`)
+- [x] Price vs. `year_built` (decade analysis — discovered "step pattern" pre/post 1970)
+- [x] Price vs. `legal_type` (STRATA vs LAND vs others)
+- [x] Price vs. `neighbourhood_code` (top 10 / bottom 10 — discovered 7x price ratio)
+- [x] Land vs. improvement ratio analysis
+- [x] Temporal evolution 2020–2026
 
 ### 2.3 Multivariate analysis
-- [ ] Correlation matrix between numeric variables
-- [ ] Seaborn heatmap
+- [x] Correlation matrix between numeric variables
+- [x] Seaborn heatmap
 
 ### 2.4 EDA conclusions
-- [ ] Markdown cell with **5–7 key insights** (these go straight into the final presentation)
+- [x] **7 key insights documented** for final presentation:
+  1. Right-skewed target → log-transform
+  2. STRATA vs LAND have different price structures
+  3. Neighbourhood = #1 price driver (7x ratio)
+  4. Property age has step-pattern (pre/post 1970)
+  5. Vancouver market is land-driven
+  6. Significant price evolution 2020–2026
+  7. ⚠️ Data leakage detected in `tax_levy` and `previous_*` columns
 
-**Deliverable:** notebook with clean charts and written findings.
+**Deliverable:** ✅ notebook with 7 actionable insights.
 
 ---
 
-## 🟡 Phase 3 — Preprocessing & Cleaning
+## 🟡 Phase 3 — Preprocessing & Cleaning ⬅️ NEXT
 
 **Goal:** prepare the dataset for training.
 
 📓 Notebook: `notebooks/02_preprocessing.ipynb`
 
-### 3.1 Cleaning
-- [ ] Handle null values (per-column strategy)
-- [ ] Drop useless columns (IDs, long legal descriptions)
-- [ ] Handle outliers (winsorization or removal as appropriate)
-- [ ] Convert data types (dates, categoricals)
+### 3.1 Data enrichment
+- [ ] **Cross with "Local area boundary" dataset** to map `neighbourhood_code` → real neighbourhood names (Shaughnessy, Kerrisdale, etc.)
+- [ ] Validate the mapping coverage
 
-### 3.2 Feature engineering (the creative part that differentiates the project)
-- [ ] `property_age` = current year − `year_built`
+### 3.2 Cleaning
+- [ ] Convert year columns to numeric: `year_built`, `report_year`, `big_improvement_year`, `tax_assessment_year`
+- [ ] Drop useless columns: `note`, `narrative_legal_line3-5`, long legal descriptions
+- [ ] **Exclude data leakage columns:** `tax_levy`, `previous_land_value`, `previous_improvement_value`
+- [ ] Handle null values (per-column strategy)
+- [ ] Handle outliers (filter or winsorize)
+- [ ] Filter to most recent year (2026) for the main model
+
+### 3.3 Feature engineering
+- [ ] `property_age` = 2026 − `year_built`
 - [ ] `total_value` = `current_land_value` + `current_improvement_value`
 - [ ] `land_to_total_ratio` = `current_land_value` / `total_value`
-- [ ] `years_since_improvement` = current year − `big_improvement_year`
-- [ ] One-hot encoding for `zoning_classification`, `neighbourhood_code`, `legal_type`
-- [ ] (Optional advanced) Cross with **parks** and **schools** datasets from the same portal to compute distance to nearest park/school — this elevates the project from good to outstanding
+- [ ] `years_since_improvement` = 2026 − `big_improvement_year`
+- [ ] `log_total_value` (target for modeling)
+- [ ] Encoding for categorical features (target encoding for neighbourhood, one-hot for legal_type/zoning)
+- [ ] (Optional advanced) Cross with **parks/schools** datasets for proximity features
 
-### 3.3 Final datasets
+### 3.4 Final datasets
 - [ ] `X` / `y` split
 - [ ] `train_test_split` (80/20, `random_state=42`)
 - [ ] Scale with `StandardScaler` for linear models
-- [ ] Save processed dataset to `data/processed/property_clean.csv`
+- [ ] Save processed dataset to `data/processed/property_clean.parquet`
 
-**Deliverable:** notebook + processed CSV ready for modeling.
+**Deliverable:** notebook + processed dataset ready for modeling.
 
 ---
 
@@ -100,10 +118,10 @@
 📓 Notebook: `notebooks/03_modeling.ipynb`
 
 ### 4.1 Models to train (in this order)
-- [ ] **Baseline:** always predict the mean (starting point)
+- [ ] **Baseline:** always predict the mean (sanity check)
 - [ ] Linear Regression
 - [ ] Random Forest Regressor
-- [ ] XGBoost / LightGBM (industry standards)
+- [ ] XGBoost / LightGBM (industry standard)
 - [ ] (Optional) Gradient Boosting Regressor
 
 ### 4.2 Evaluation
@@ -111,7 +129,8 @@
 - [ ] 5-fold cross-validation for robustness
 - [ ] Predicted vs. actual plot
 - [ ] Residuals plot
-- [ ] **Feature importance** of the best model (key for interview explanations)
+- [ ] **Feature importance** of the best model
+- [ ] SHAP values (optional, very impressive for interviews)
 
 ### 4.3 Hyperparameter tuning
 - [ ] GridSearchCV or RandomizedSearchCV on the best model
@@ -128,13 +147,13 @@
 📁 Folder: `app/`
 
 - [ ] `app/app.py` with the main application
-- [ ] **Page 1: Home** — project explanation, problem solved, Vancouver context
-- [ ] **Page 2: Data explorer** — neighbourhood filters, interactive Folium map
-- [ ] **Page 3: Predictor** — form for inputs + price estimation with confidence interval
+- [ ] **Page 1: Home** — project explanation, Vancouver context
+- [ ] **Page 2: Data explorer** — filters + interactive Folium map
+- [ ] **Page 3: Predictor** — input form + price estimation
 - [ ] **Page 4: Insights** — key EDA charts
 - [ ] Clean design (sidebar navigation, consistent colors)
 - [ ] Test locally with `streamlit run app/app.py`
-- [ ] **Deploy free on Streamlit Cloud** → gives you a public link for your CV/LinkedIn
+- [ ] **Deploy free on Streamlit Cloud** → public link for CV/LinkedIn
 
 **Deliverable:** working app + public link.
 
@@ -149,10 +168,11 @@
   - [ ] Results/metrics table
   - [ ] Demo GIF or link to deployed app
   - [ ] "Key insights" section
-- [ ] Create `docs/PRESENTATION.md` with business-focused project summary
+- [ ] Create `docs/PRESENTATION.md` with business-focused summary
 - [ ] Clean notebooks (run top-to-bottom without errors)
-- [ ] Update `requirements.txt` with specific versions (`pip freeze > requirements.txt`)
-- [ ] Verify anyone can clone and run the project following the README
+- [ ] Update `requirements.txt` with specific versions
+- [ ] Add data download instructions in README
+- [ ] Verify anyone can clone and run the project
 
 **Deliverable:** polished public repo ready to show.
 
@@ -170,3 +190,40 @@
   4. Chosen model and why
   5. Metrics and validation
   6. Live Streamlit demo
+  7. Limitations and next steps
+  8. Question to open audience conversation
+- [ ] **Rehearse out loud** at least 3 times
+- [ ] Prepare answers to: "Why this model?", "What would you do differently with more time?", "How would you put it in production?"
+
+**Deliverable:** presentation ready + you ready to defend it.
+
+---
+
+## 🎯 Key Milestones
+
+| Milestone | When | Status |
+|---|---|---|
+| **Milestone 1** | End of Phase 2 | ✅ **DONE** — Vancouver story told with 7 insights |
+| **Milestone 2** | End of Phase 4 | Pending — Model with R² > 0.75 |
+| **Milestone 3** | End of Phase 5 | Pending — Public link for recruiters |
+| **Milestone 4** | End of Phase 7 | Pending — 5-min pitch ready |
+
+---
+
+## 💡 Pro Tips
+
+1. **Commit often.** Every meaningful step → commit + push.
+2. **Professional commit messages:** `feat: ...`, `fix: ...`, `docs: ...`.
+3. **Speak with data, not opinions.**
+4. **Iterate, don't perfect.** Better all phases at 70% than Phase 1 at 100%.
+
+---
+
+## 📊 Key findings carried into next phases
+
+- ⚠️ **Exclude from features (data leakage):** `tax_levy`, `previous_land_value`, `previous_improvement_value`
+- 🔄 **Type conversions needed:** all year columns are strings
+- 🧹 **Drop columns:** `note`, `narrative_legal_line3-5`, `block`, `from_civic_number`
+- 🎯 **Strong features confirmed:** `neighbourhood_code`, `legal_type`, `zoning_classification`, `year_built`
+- 📉 **Target transformation:** use `log(total_value)`
+- 🗺️ **Enrichment needed:** map neighbourhood codes to real names
