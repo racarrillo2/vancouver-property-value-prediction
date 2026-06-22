@@ -11,3 +11,4 @@ streamlit-folium
 joblib
 requests
 pyarrow
+xgboost
