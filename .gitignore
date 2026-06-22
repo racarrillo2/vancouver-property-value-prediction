@@ -226,9 +226,8 @@ data/processed/*.parquet
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 
-# Models
-models/*.pkl
-models/*.joblib
+# Models — keep .pkl for Streamlit Cloud deployment
+# (only large files >50MB would be ignored)
 !models/.gitkeep
 
 # Jupyter
