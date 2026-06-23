@@ -3,10 +3,17 @@ Vancouver Property Value Prediction — Streamlit App
 Main entry point: project overview and navigation.
 """
 
+import sys
+from pathlib import Path
+
+# Add app folder to path so we can import translations/i18n
+sys.path.insert(0, str(Path(__file__).parent))
+
 import streamlit as st
+from i18n import language_selector, tr
 
 # ============================================================
-# Page configuration (MUST be the first Streamlit command)
+# Page configuration
 # ============================================================
 st.set_page_config(
     page_title="Vancouver Property Predictor",
@@ -21,89 +28,48 @@ st.set_page_config(
 )
 
 # ============================================================
-# Sidebar branding
+# Sidebar
 # ============================================================
+language_selector()  # Must be first
+
 with st.sidebar:
-    st.title("🏙️ Vancouver Property Predictor")
-    st.caption("ML-powered property valuation for the City of Vancouver, BC.")
+    st.title(tr("sidebar_title"))
+    st.caption(tr("sidebar_caption"))
     st.divider()
-    st.markdown("**Navigate** using the menu above ⬆️")
+    st.markdown(tr("sidebar_navigate"))
     st.divider()
-    st.caption("Built by **Rafael Carrillo Mirabal**")
+    st.caption(tr("sidebar_built_by"))
     st.caption("[GitHub](https://github.com/racarrillo2/vancouver-property-value-prediction) · [LinkedIn](https://www.linkedin.com/in/rafael-carrillo-mirabal/?locale=en)")
 
 # ============================================================
 # Main content
 # ============================================================
-st.title("🏙️ Vancouver Property Value Prediction")
-st.markdown(
-    "An end-to-end machine learning project that estimates the market value of properties in Vancouver, BC."
-)
+st.title(tr("home_title"))
+st.markdown(tr("home_subtitle"))
 
-# Hero metrics
 col1, col2, col3, col4 = st.columns(4)
-col1.metric("Model R²", "0.80")
-col2.metric("MAE", "$376K")
-col3.metric("Training data", "209K properties")
-col4.metric("Cross-validation std", "0.003")
+col1.metric(tr("metric_r2"), "0.80")
+col2.metric(tr("metric_mae"), "$376K")
+col3.metric(tr("metric_training"), tr("metric_training_value"))
+col4.metric(tr("metric_cv"), "0.003")
 
 st.divider()
 
-# Sections
 col_left, col_right = st.columns(2)
 
 with col_left:
-    st.subheader("🎯 The problem")
-    st.markdown(
-        """
-        Vancouver has one of the most expensive real estate markets in North America.
-        Buyers, investors, and real estate professionals constantly face the question:
+    st.subheader(tr("home_problem_title"))
+    st.markdown(tr("home_problem_text"))
 
-        > **Is this property fairly priced?**
-
-        This project answers that with data. Using 209,000 property records from the
-        City of Vancouver Open Data Portal, an XGBoost regression model predicts the
-        market value of a property based on its location, type, age, and characteristics.
-        """
-    )
-
-    st.subheader("📊 The data")
-    st.markdown(
-        """
-        - **Source:** [City of Vancouver Open Data Portal](https://opendata.vancouver.ca/explore/dataset/property-tax-report/)
-        - **Records:** 1.5M raw → 209K after filtering to 2026 and removing outliers
-        - **Features used:** neighbourhood, legal type, zoning, property age, years since improvement
-        - **Target:** total property value (land + improvement)
-        """
-    )
+    st.subheader(tr("home_data_title"))
+    st.markdown(tr("home_data_text"))
 
 with col_right:
-    st.subheader("🛠️ The tech stack")
-    st.markdown(
-        """
-        - **Python** — pandas, scikit-learn, XGBoost
-        - **EDA** — Jupyter, matplotlib, seaborn
-        - **Modeling** — XGBoost with hyperparameter tuning via RandomizedSearchCV
-        - **Validation** — 5-fold cross-validation
-        - **Deployment** — Streamlit + Streamlit Cloud
-        """
-    )
+    st.subheader(tr("home_tech_title"))
+    st.markdown(tr("home_tech_text"))
 
-    st.subheader("🚀 What you can do here")
-    st.markdown(
-        """
-        - 🔮 **Predictor** — input property characteristics and get an estimated price
-        - 📊 **Insights** — explore the key findings from the data analysis
-        - 👤 **About** — learn about the project and the author
-        """
-    )
+    st.subheader(tr("home_what_title"))
+    st.markdown(tr("home_what_text"))
 
 st.divider()
-
-st.info(
-    "**Disclaimer:** this model is a portfolio project trained on publicly available "
-    "data. Predictions are illustrative and should not be used for actual real estate "
-    "decisions. The model performs best on mainstream Vancouver properties (1st–99th percentile) "
-    "and underestimates luxury properties above $5M due to missing features (lot size, square footage, view).",
-    icon="ℹ️"
-)
+st.info(tr("home_disclaimer"), icon="ℹ️")

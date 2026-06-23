@@ -31,7 +31,9 @@ vancouver-property-value-prediction/
 ├── data/
 │   ├── raw/             # Original data from City of Vancouver API
 │   └── processed/       # Cleaned data ready for modeling
+├── docs/                # Documentation
 ├── notebooks/
+│   ├── 00_data_understanding.ipynb
 │   ├── 01_eda.ipynb
 │   ├── 02_preprocessing.ipynb
 │   └── 03_modeling.ipynb
