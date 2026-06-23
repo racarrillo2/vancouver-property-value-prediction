@@ -110,10 +110,11 @@ Esto tiene sentido: en un mercado con escasez de suelo, la ubicación y el tipo 
 
 La app permite:
 
-1. **Explorar datos** → mapa interactivo de Vancouver con precios por barrio
-2. **Predecir precio** → formulario donde ingresas tipo, barrio, año y zonificación → obtienes una estimación instantánea
-3. **Ver insights** → gráficos clave del EDA explicados en lenguaje sencillo
-4. **Idioma** → toggle Español / English
+1. **🗺️ Mapa** → mapa coroplético interactivo con precios medios por barrio
+2. **🔮 Predecir precio** → formulario donde ingresas tipo, barrio, año y zonificación → obtienes una estimación instantánea
+3. **📊 Insights** → gráficos clave del EDA explicados en lenguaje sencillo
+4. **👤 Acerca de** → información del proyecto y del autor
+5. **🌐 Idioma** → toggle Español / English
 
 *Demo: predecir una propiedad STRATA en Kitsilano de 1990 vs una LAND en Shaughnessy de 1960*
 

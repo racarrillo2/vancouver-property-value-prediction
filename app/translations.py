@@ -83,11 +83,13 @@ TRANSLATIONS = {
     "home_what_title": {"en": "🚀 What you can do here", "es": "🚀 Qué puedes hacer aquí"},
     "home_what_text": {
         "en": (
+            "- 🗺️ **Map** — explore property values across Vancouver neighbourhoods\n"
             "- 🔮 **Predictor** — input property characteristics and get an estimated price\n"
             "- 📊 **Insights** — explore the key findings from the data analysis\n"
             "- 👤 **About** — learn about the project and the author"
         ),
         "es": (
+            "- 🗺️ **Mapa** — explora los valores de propiedades por barrio\n"
             "- 🔮 **Predictor** — introduce características y obtén un precio estimado\n"
             "- 📊 **Insights** — explora los hallazgos clave del análisis\n"
             "- 👤 **Acerca de** — conoce el proyecto y al autor"
@@ -231,6 +233,29 @@ TRANSLATIONS = {
     "about_link_code": {"en": "💻 View source code", "es": "💻 Ver código fuente"},
     "about_link_linkedin": {"en": "🔗 Connect on LinkedIn", "es": "🔗 Conectar en LinkedIn"},
     "about_link_data": {"en": "📊 Data source", "es": "📊 Fuente de datos"},
+    # ============================================================
+    # MAP PAGE
+    # ============================================================
+    "map_title": {"en": "🗺️ Vancouver Property Map", "es": "🗺️ Mapa de Propiedades Vancouver"},
+    "map_subtitle": {
+        "en": "Explore median property values across Vancouver neighbourhoods. Darker areas indicate higher prices.",
+        "es": "Explora los valores medios de propiedades por barrio. Las áreas más oscuras indican precios más altos."
+    },
+    "map_filter_legal": {"en": "Filter by legal type", "es": "Filtrar por tipo legal"},
+    "map_filter_all": {"en": "All properties", "es": "Todas las propiedades"},
+    "map_legend_title": {"en": "Median value (CAD)", "es": "Valor mediano (CAD)"},
+    "map_tab_map": {"en": "🗺️ Map", "es": "🗺️ Mapa"},
+    "map_tab_data": {"en": "📋 Neighbourhood data", "es": "📋 Datos por barrio"},
+    "map_neighbourhood": {"en": "Neighbourhood", "es": "Barrio"},
+    "map_median_value": {"en": "Median value", "es": "Valor mediano"},
+    "map_property_count": {"en": "Properties", "es": "Propiedades"},
+    "map_note": {
+        "en": "**Note:** Some neighbourhoods in the data (e.g., Coal Harbour, Yaletown, False Creek) are sub-districts within larger City of Vancouver official boundaries. Properties in those areas are grouped into their parent neighbourhood for mapping.",
+        "es": "**Nota:** Algunos barrios en los datos (ej. Coal Harbour, Yaletown, False Creek) son sub-áreas dentro de los límites oficiales de Vancouver. Las propiedades en esas áreas se agrupan en el barrio padre para el mapa."
+    },
+    "map_mapped": {"en": "properties mapped to official boundaries", "es": "propiedades mapeadas a límites oficiales"},
+    "map_unmapped": {"en": "properties not mapped (sub-neighbourhoods under parent areas)", "es": "propiedades no mapeadas (sub-áreas agrupadas en barrios padres)"},
+
     "about_footer": {
         "en": "Built with Python, scikit-learn, XGBoost, and Streamlit. Source code and full documentation available on GitHub.",
         "es": "Hecho con Python, scikit-learn, XGBoost y Streamlit. Código fuente y documentación completa disponibles en GitHub."
