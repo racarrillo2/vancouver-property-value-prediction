@@ -148,15 +148,14 @@
 
 - [x] `app/Dashboard.py` with the main application
 - [x] **Page 1: Home** — project explanation, Vancouver context
-- [x] **Page 2: Map** — interactive Folium choropleth of property values by neighbourhood
+- [ ] **Page 2: Data explorer** — filters + interactive Folium map
 - [x] **Page 3: Predictor** — input form + price estimation
 - [x] **Page 4: Insights** — key EDA charts
-- [x] **Page 5: About** — project info and author
 - [x] Clean design (sidebar navigation, consistent colors, bilingual EN/ES)
 - [x] Test locally with `streamlit run app/Dashboard.py`
 - [x] **Deploy free on Streamlit Cloud** → [vancouver-property-value-prediction.streamlit.app](https://vancouver-property-value-prediction.streamlit.app)
 
-**Deliverable:** working app deployed at [vancouver-property-value-prediction.streamlit.app](https://vancouver-property-value-prediction.streamlit.app).
+**Deliverable:** working app deployed at [vancouver-property-value-prediction.streamlit.app](https://vancouver-property-value-prediction.streamlit.app) (missing Data explorer page).
 
 ---
 
