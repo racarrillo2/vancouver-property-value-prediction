@@ -12,7 +12,8 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import joblib
-from i18n import language_selector, tr
+from i18n import language_selector, tr, get_lang
+from translations import display_value, LEGAL_TYPE_DISPLAY, ZONING_DISPLAY
 
 # ============================================================
 # Page config
@@ -62,15 +63,17 @@ with col1:
     )
 
     legal_type = st.selectbox(
-        tr("pred_legal_type"),
-        options=metadata['legal_types'],
-        help=tr("pred_legal_type_help")
+    tr("pred_legal_type"),
+    options=metadata['legal_types'],
+    format_func=lambda x: display_value(x, LEGAL_TYPE_DISPLAY, get_lang()),
+    help=tr("pred_legal_type_help")
     )
 
     zoning = st.selectbox(
-        tr("pred_zoning"),
-        options=metadata['zoning_classifications'],
-        help=tr("pred_zoning_help")
+    tr("pred_zoning"),
+    options=metadata['zoning_classifications'],
+    format_func=lambda x: display_value(x, ZONING_DISPLAY, get_lang()),
+    help=tr("pred_zoning_help")
     )
 
 with col2:

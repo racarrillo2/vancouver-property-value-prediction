@@ -204,7 +204,7 @@ TRANSLATIONS = {
     "about_location": {"en": "📍 Vancouver, BC", "es": "📍 Vancouver, BC"},
     "about_bio": {
         "en": "Aspiring Data Scientist with hands-on experience in the full ML lifecycle: from raw data ingestion through model deployment. Currently building a portfolio focused on real-world, business-relevant problems.\n\n**Tech stack:** Python · pandas · scikit-learn · XGBoost · Streamlit · Git · SQL\n\n**Open to opportunities** in Data Science, Data Analytics, and Machine Learning roles in Vancouver and remote-friendly companies.",
-        "es": "Aspirante a Data Scientist con experiencia práctica en el ciclo completo de ML: desde la ingesta de datos crudos hasta el despliegue del modelo. Actualmente construyendo un portafolio enfocado en problemas reales y relevantes para el negocio.\n\n**Stack técnico:** Python · pandas · scikit-learn · XGBoost · Streamlit · Git · SQL\n\n**Abierto a oportunidades** en roles de Data Science, Data Analytics y Machine Learning en Vancouver y empresas remote-friendly."
+        "es": "Aspirante a Data Analyst y Data Scientist con experiencia práctica en el ciclo completo de ML: desde la ingesta de datos crudos hasta el despliegue del modelo. Actualmente construyendo un portafolio enfocado en problemas reales y relevantes para el negocio.\n\n**Stack técnico:** Python · pandas · scikit-learn · XGBoost · Streamlit · Git · SQL\n\n**Abierto a oportunidades** en roles de Data Science, Data Analytics y Machine Learning en Vancouver y empresas remote-friendly."
     },
     "about_tech_title": {"en": "🛠️ Technical details", "es": "🛠️ Detalles técnicos"},
     "about_data_subtitle": {"en": "Data", "es": "Datos"},
@@ -247,3 +247,29 @@ def t(key: str, lang: str = "en", **kwargs) -> str:
         except KeyError:
             pass
     return text
+
+# ============================================================
+# CATEGORICAL DISPLAY MAPPINGS
+# ============================================================
+
+ZONING_DISPLAY = {
+    "Commercial": {"en": "Commercial", "es": "Comercial"},
+    "Comprehensive Development": {"en": "Comprehensive Development", "es": "Desarrollo Integral"},
+    "Historical Area": {"en": "Historical Area", "es": "\u00c1rea Hist\u00f3rica"},
+    "Industrial": {"en": "Industrial", "es": "Industrial"},
+    "Limited Agriculture": {"en": "Limited Agriculture", "es": "Agricultura Limitada"},
+    "Residential": {"en": "Residential", "es": "Residencial"},
+    "Residential Inclusive": {"en": "Residential Inclusive", "es": "Residencial Inclusivo"},
+    "Residential Rental": {"en": "Residential Rental", "es": "Residencial de Alquiler"},
+}
+
+LEGAL_TYPE_DISPLAY = {
+    "STRATA": {"en": "STRATA (condo/apartment)", "es": "STRATA (condominio/apartamento)"},
+    "LAND": {"en": "LAND (full ownership)", "es": "LAND (propiedad completa)"},
+    "Other": {"en": "Other", "es": "Otro"},
+    "Unknown": {"en": "Unknown", "es": "Desconocido"},
+}
+
+
+def display_value(original, mapping, lang):
+    return mapping.get(original, {}).get(lang, original)
