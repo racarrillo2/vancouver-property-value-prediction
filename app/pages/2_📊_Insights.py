@@ -11,7 +11,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.express as px
-from i18n import language_selector, tr
+from language_utils import language_selector, tr
 from src.data_utils import load_processed_data
 
 # ============================================================

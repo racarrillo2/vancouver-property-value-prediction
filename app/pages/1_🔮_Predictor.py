@@ -10,7 +10,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 import streamlit as st
 import pandas as pd
 import numpy as np
-from i18n import language_selector, tr, get_lang
+from language_utils import language_selector, tr, get_lang
 from translations import display_value, LEGAL_TYPE_DISPLAY, ZONING_DISPLAY
 from src.model_utils import load_model_and_metadata
 from src.config import CURRENT_YEAR, MAE

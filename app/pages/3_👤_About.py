@@ -8,7 +8,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 import streamlit as st
-from i18n import language_selector, tr
+from language_utils import language_selector, tr
 
 st.set_page_config(page_title="About", page_icon="👤", layout="wide")
 language_selector()

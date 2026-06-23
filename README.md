@@ -44,7 +44,7 @@ vancouver-property-value-prediction/
 ├── models/              # Trained models (.pkl)
 ├── app/                 # Streamlit dashboard
 │   ├── Dashboard.py     # Main dashboard page
-│   ├── i18n.py          # Internationalization helpers
+│   ├── language_utils.py  # Language selector & i18n helpers
 │   └── translations.py  # Translation strings
 ├── requirements.txt
 └── README.md
