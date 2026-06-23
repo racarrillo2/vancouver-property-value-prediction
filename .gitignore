@@ -225,6 +225,7 @@ data/processed/*.csv
 data/processed/*.parquet
 !data/raw/.gitkeep
 !data/processed/.gitkeep
+!data/processed/property_clean.parquet
 
 # Models — keep .pkl for Streamlit Cloud deployment
 # (only large files >50MB would be ignored)
