@@ -5,15 +5,15 @@ Predictor page — interactive form to estimate property values.
 import sys
 from pathlib import Path
 
-# Add app folder to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 import streamlit as st
 import pandas as pd
 import numpy as np
-import joblib
 from i18n import language_selector, tr, get_lang
 from translations import display_value, LEGAL_TYPE_DISPLAY, ZONING_DISPLAY
+from src.model_utils import load_model_and_metadata
+from src.config import CURRENT_YEAR, MAE
 
 # ============================================================
 # Page config
@@ -27,15 +27,11 @@ language_selector()
 # Load model and metadata
 # ============================================================
 @st.cache_resource
-def load_model_and_metadata():
-    model_path = Path(__file__).parent.parent.parent / "models" / "best_model.pkl"
-    metadata_path = Path(__file__).parent.parent.parent / "models" / "model_metadata.pkl"
-    model = joblib.load(model_path)
-    metadata = joblib.load(metadata_path)
-    return model, metadata
+def get_model_and_metadata():
+    return load_model_and_metadata()
 
 try:
-    model, metadata = load_model_and_metadata()
+    model, metadata = get_model_and_metadata()
 except FileNotFoundError as e:
     st.error(f"⚠️ Model files not found.\n\n{e}")
     st.stop()
@@ -92,7 +88,6 @@ with col2:
     )
 
 # Calculated features
-CURRENT_YEAR = 2026
 property_age = CURRENT_YEAR - year_built
 years_since_improvement = CURRENT_YEAR - year_improved
 
@@ -119,7 +114,7 @@ if predict_button:
     log_prediction = model.predict(input_data)[0]
     prediction_dollars = np.expm1(log_prediction)
 
-    mae = 376432
+    mae = MAE
     lower_bound = max(0, prediction_dollars - mae)
     upper_bound = prediction_dollars + mae
 

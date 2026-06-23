@@ -12,6 +12,7 @@ import pandas as pd
 import numpy as np
 import plotly.express as px
 from i18n import language_selector, tr
+from src.data_utils import load_processed_data
 
 # ============================================================
 # Page config
@@ -23,13 +24,11 @@ language_selector()
 # Load data
 # ============================================================
 @st.cache_data
-def load_data():
-    data_path = Path(__file__).parent.parent.parent / "data" / "processed" / "property_clean.parquet"
-    df = pd.read_parquet(data_path)
-    return df
+def get_processed_data():
+    return load_processed_data()
 
 try:
-    df = load_data()
+    df = get_processed_data()
 except FileNotFoundError:
     st.error("⚠️ Processed data not found.")
     st.stop()

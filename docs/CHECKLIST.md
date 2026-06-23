@@ -2,7 +2,7 @@
 
 > End-to-end roadmap for the data science portfolio project. Tracks progress from data acquisition to final presentation.
 
-**Last updated:** Phase 4 (Modeling complete) — app deployed
+**Last updated:** Phase 5 (Dashboard partial) — checklist synced with actual progress
 
 ---
 
@@ -74,107 +74,108 @@
 
 ---
 
-## 🟡 Phase 3 — Preprocessing & Cleaning ⬅️ NEXT
+## 🟢 Phase 3 — Preprocessing & Cleaning ✅ COMPLETE
 
 **Goal:** prepare the dataset for training.
 
 📓 Notebook: `notebooks/02_preprocessing.ipynb`
 
 ### 3.1 Data enrichment
-- [ ] **Cross with "Local area boundary" dataset** to map `neighbourhood_code` → real neighbourhood names (Shaughnessy, Kerrisdale, etc.)
-- [ ] Validate the mapping coverage
+- [x] **Cross with "Local area boundary" dataset** to map `neighbourhood_code` → real neighbourhood names (Shaughnessy, Kerrisdale, etc.)
+- [x] Validate the mapping coverage
 
 ### 3.2 Cleaning
-- [ ] Convert year columns to numeric: `year_built`, `report_year`, `big_improvement_year`, `tax_assessment_year`
-- [ ] Drop useless columns: `note`, `narrative_legal_line3-5`, long legal descriptions
-- [ ] **Exclude data leakage columns:** `tax_levy`, `previous_land_value`, `previous_improvement_value`
-- [ ] Handle null values (per-column strategy)
-- [ ] Handle outliers (filter or winsorize)
-- [ ] Filter to most recent year (2026) for the main model
+- [x] Convert year columns to numeric: `year_built`, `report_year`, `big_improvement_year`, `tax_assessment_year`
+- [x] Drop useless columns: `note`, `narrative_legal_line3-5`, long legal descriptions
+- [x] **Exclude data leakage columns:** `tax_levy`, `previous_land_value`, `previous_improvement_value`
+- [x] Handle null values (per-column strategy)
+- [x] Handle outliers (filter or winsorize)
+- [x] Filter to most recent year (2026) for the main model
 
 ### 3.3 Feature engineering
-- [ ] `property_age` = 2026 − `year_built`
-- [ ] `total_value` = `current_land_value` + `current_improvement_value`
-- [ ] `land_to_total_ratio` = `current_land_value` / `total_value`
-- [ ] `years_since_improvement` = 2026 − `big_improvement_year`
-- [ ] `log_total_value` (target for modeling)
-- [ ] Encoding for categorical features (target encoding for neighbourhood, one-hot for legal_type/zoning)
+- [x] `property_age` = 2026 − `year_built`
+- [x] `total_value` = `current_land_value` + `current_improvement_value`
+- [x] `land_to_total_ratio` = `current_land_value` / `total_value`
+- [x] `years_since_improvement` = 2026 − `big_improvement_year`
+- [x] `log_total_value` (target for modeling)
+- [x] Encoding for categorical features (target encoding for neighbourhood, one-hot for legal_type/zoning)
 - [ ] (Optional advanced) Cross with **parks/schools** datasets for proximity features
 
 ### 3.4 Final datasets
-- [ ] `X` / `y` split
-- [ ] `train_test_split` (80/20, `random_state=42`)
-- [ ] Scale with `StandardScaler` for linear models
-- [ ] Save processed dataset to `data/processed/property_clean.parquet`
+- [x] `X` / `y` split
+- [x] `train_test_split` (80/20, `random_state=42`)
+- [x] Scale with `StandardScaler` for linear models
+- [x] Save processed dataset to `data/processed/property_clean.parquet`
 
-**Deliverable:** notebook + processed dataset ready for modeling.
+**Deliverable:** ✅ notebook + processed dataset ready for modeling.
 
 ---
 
-## 🟡 Phase 4 — Modeling & Evaluation
+## 🟢 Phase 4 — Modeling & Evaluation ✅ COMPLETE
 
 **Goal:** train multiple models, compare, pick the best.
 
 📓 Notebook: `notebooks/03_modeling.ipynb`
 
 ### 4.1 Models to train (in this order)
-- [ ] **Baseline:** always predict the mean (sanity check)
-- [ ] Linear Regression
-- [ ] Random Forest Regressor
-- [ ] XGBoost / LightGBM (industry standard)
+- [x] **Baseline:** always predict the mean (sanity check)
+- [x] Linear Regression
+- [x] Random Forest Regressor
+- [x] XGBoost (industry standard, chosen as final model)
 - [ ] (Optional) Gradient Boosting Regressor
 
 ### 4.2 Evaluation
-- [ ] Metrics: **MAE, RMSE, R²** (all three in a comparison table)
-- [ ] 5-fold cross-validation for robustness
-- [ ] Predicted vs. actual plot
-- [ ] Residuals plot
-- [ ] **Feature importance** of the best model
+- [x] Metrics: **MAE, RMSE, R²** (all three in a comparison table)
+- [x] 5-fold cross-validation for robustness
+- [x] Predicted vs. actual plot
+- [x] Residuals plot
+- [x] **Feature importance** of the best model
 - [ ] SHAP values (optional, very impressive for interviews)
 
 ### 4.3 Hyperparameter tuning
-- [ ] GridSearchCV or RandomizedSearchCV on the best model
-- [ ] Save final model to `models/best_model.pkl` with `joblib`
+- [x] RandomizedSearchCV on XGBoost
+- [x] Save final model to `models/best_model.pkl` with `joblib`
 
-**Deliverable:** notebook + trained model + metrics comparison table.
+**Deliverable:** ✅ notebook + trained model + metrics comparison table.
 
 ---
 
-## 🟡 Phase 5 — Product: Streamlit Dashboard
+## 🟡 Phase 5 — Product: Streamlit Dashboard (partial)
 
 **Goal:** anyone can use the model without knowing Python.
 
 📁 Folder: `app/`
 
-- [ ] `app/Dashboard.py` with the main application
-- [ ] **Page 1: Home** — project explanation, Vancouver context
+- [x] `app/Dashboard.py` with the main application
+- [x] **Page 1: Home** — project explanation, Vancouver context
 - [ ] **Page 2: Data explorer** — filters + interactive Folium map
-- [ ] **Page 3: Predictor** — input form + price estimation
-- [ ] **Page 4: Insights** — key EDA charts
-- [ ] Clean design (sidebar navigation, consistent colors)
-- [ ] Test locally with `streamlit run app/Dashboard.py`
+- [x] **Page 3: Predictor** — input form + price estimation
+- [x] **Page 4: Insights** — key EDA charts
+- [x] Clean design (sidebar navigation, consistent colors, bilingual EN/ES)
+- [x] Test locally with `streamlit run app/Dashboard.py`
 - [ ] **Deploy free on Streamlit Cloud** → public link for CV/LinkedIn
 
-**Deliverable:** working app + public link.
+**Deliverable:** working app (missing Data explorer page) + pending public link.
 
 ---
 
-## 🟡 Phase 6 — Final Documentation
+## 🟡 Phase 6 — Final Documentation (partial)
 
 **Goal:** repo ready to be seen by recruiters.
 
-- [ ] Update README with:
+- [x] Update README with:
   - [ ] App screenshots
-  - [ ] Results/metrics table
+  - [x] Results/metrics table
   - [ ] Demo GIF or link to deployed app
   - [ ] "Key insights" section
 - [ ] Create `docs/PRESENTATION.md` with business-focused summary
-- [ ] Clean notebooks (run top-to-bottom without errors)
-- [ ] Update `requirements.txt` with specific versions
-- [ ] Add data download instructions in README
-- [ ] Verify anyone can clone and run the project
+- [x] Clean notebooks (run top-to-bottom without errors)
+- [x] Update `requirements.txt` with specific versions
+- [x] Add data download instructions in README
+- [x] Verify anyone can clone and run the project
+- [x] Refactored shared code into `src/` reusable modules
 
-**Deliverable:** polished public repo ready to show.
+**Deliverable:** mostly polished — missing screenshots, Presentation.md, and deploy link.
 
 ---
 
@@ -204,9 +205,9 @@
 | Milestone | When | Status |
 |---|---|---|
 | **Milestone 1** | End of Phase 2 | ✅ **DONE** — Vancouver story told with 7 insights |
-| **Milestone 2** | End of Phase 4 | Pending — Model with R² > 0.75 |
-| **Milestone 3** | End of Phase 5 | Pending — Public link for recruiters |
-| **Milestone 4** | End of Phase 7 | Pending — 5-min pitch ready |
+| **Milestone 2** | End of Phase 4 | ✅ **DONE** — XGBoost with R² = 0.80 |
+| **Milestone 3** | End of Phase 5 | ⬜ Pending — Public link for recruiters |
+| **Milestone 4** | End of Phase 7 | ⬜ Pending — 5-min pitch ready |
 
 ---
 

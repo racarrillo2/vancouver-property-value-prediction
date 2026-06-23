@@ -38,6 +38,9 @@ vancouver-property-value-prediction/
 │   ├── 02_preprocessing.ipynb
 │   └── 03_modeling.ipynb
 ├── src/                 # Reusable code modules
+│   ├── config.py        # App constants (paths, year, MAE)
+│   ├── data_utils.py    # Data loading utilities
+│   └── model_utils.py   # Model loading utilities
 ├── models/              # Trained models (.pkl)
 ├── app/                 # Streamlit dashboard
 │   ├── Dashboard.py     # Main dashboard page
