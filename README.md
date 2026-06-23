@@ -1,5 +1,7 @@
 # 🏙️ Vancouver Property Value Prediction
 
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://vancouver-property-value-prediction.streamlit.app)
+
 Machine learning project that predicts property values in Vancouver, BC using open data from the City of Vancouver. Built as an end-to-end data science portfolio project: from data ingestion via public API to an interactive Streamlit dashboard.
 
 ## 🎯 Problem statement
@@ -51,6 +53,12 @@ vancouver-property-value-prediction/
 ```
 
 ## 🚀 How to run
+
+### 🌐 Live app
+
+[https://vancouver-property-value-prediction.streamlit.app](https://vancouver-property-value-prediction.streamlit.app)
+
+### 🖥️ Run locally
 
 ```bash
 git clone https://github.com/racarrillo2/vancouver-property-value-prediction.git

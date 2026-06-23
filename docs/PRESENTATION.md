@@ -11,7 +11,7 @@
 
 Rafael Carrillo Mirabal  
 GitHub: [racarrillo2/vancouver-property-value-prediction](https://github.com/racarrillo2/vancouver-property-value-prediction)  
-Streamlit App: [link pendiente de deploy]
+Streamlit App: [vancouver-property-value-prediction.streamlit.app](https://vancouver-property-value-prediction.streamlit.app)
 
 ---
 
@@ -106,7 +106,7 @@ Esto tiene sentido: en un mercado con escasez de suelo, la ubicación y el tipo 
 
 ## Slide 7 — Demo en Vivo
 
-**Streamlit Dashboard** — [enlace a app desplegada]
+**Streamlit Dashboard** — [vancouver-property-value-prediction.streamlit.app](https://vancouver-property-value-prediction.streamlit.app)
 
 La app permite:
 
@@ -156,7 +156,7 @@ R: API con FastAPI → endpoint `/predict` → el dashboard de Streamlit consume
 
 **Repo:** [github.com/racarrillo2/vancouver-property-value-prediction](https://github.com/racarrillo2/vancouver-property-value-prediction)
 
-**App:** [link a Streamlit Cloud]
+**App:** [vancouver-property-value-prediction.streamlit.app](https://vancouver-property-value-prediction.streamlit.app)
 
 **Contacto:** Rafael Carrillo — [LinkedIn](https://www.linkedin.com/in/rafael-carrillo-mirabal/?locale=en)
 

@@ -153,9 +153,9 @@
 - [x] **Page 4: Insights** — key EDA charts
 - [x] Clean design (sidebar navigation, consistent colors, bilingual EN/ES)
 - [x] Test locally with `streamlit run app/Dashboard.py`
-- [ ] **Deploy free on Streamlit Cloud** → public link for CV/LinkedIn
+- [x] **Deploy free on Streamlit Cloud** → [vancouver-property-value-prediction.streamlit.app](https://vancouver-property-value-prediction.streamlit.app)
 
-**Deliverable:** working app (missing Data explorer page) + pending public link.
+**Deliverable:** working app deployed at [vancouver-property-value-prediction.streamlit.app](https://vancouver-property-value-prediction.streamlit.app) (missing Data explorer page).
 
 ---
 
@@ -166,7 +166,7 @@
 - [x] Update README with:
   - [ ] App screenshots
   - [x] Results/metrics table
-  - [ ] Demo GIF or link to deployed app
+  - [x] Link to deployed app: [vancouver-property-value-prediction.streamlit.app](https://vancouver-property-value-prediction.streamlit.app)
   - [ ] "Key insights" section
 - [ ] Create `docs/PRESENTATION.md` with business-focused summary
 - [x] Clean notebooks (run top-to-bottom without errors)
@@ -175,7 +175,7 @@
 - [x] Verify anyone can clone and run the project
 - [x] Refactored shared code into `src/` reusable modules
 
-**Deliverable:** mostly polished — missing screenshots, Presentation.md, and deploy link.
+**Deliverable:** mostly polished — missing screenshots and Presentation.md. Deployed at [vancouver-property-value-prediction.streamlit.app](https://vancouver-property-value-prediction.streamlit.app).
 
 ---
 
@@ -206,7 +206,7 @@
 |---|---|---|
 | **Milestone 1** | End of Phase 2 | ✅ **DONE** — Vancouver story told with 7 insights |
 | **Milestone 2** | End of Phase 4 | ✅ **DONE** — XGBoost with R² = 0.80 |
-| **Milestone 3** | End of Phase 5 | ⬜ Pending — Public link for recruiters |
+| **Milestone 3** | End of Phase 5 | ✅ **DONE** — [vancouver-property-value-prediction.streamlit.app](https://vancouver-property-value-prediction.streamlit.app) |
 | **Milestone 4** | End of Phase 7 | ⬜ Pending — 5-min pitch ready |
 
 ---
