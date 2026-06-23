@@ -40,6 +40,9 @@ vancouver-property-value-prediction/
 ├── src/                 # Reusable code modules
 ├── models/              # Trained models (.pkl)
 ├── app/                 # Streamlit dashboard
+│   ├── Dashboard.py     # Main dashboard page
+│   ├── i18n.py          # Internationalization helpers
+│   └── translations.py  # Translation strings
 ├── requirements.txt
 └── README.md
 ```
@@ -50,7 +53,7 @@ vancouver-property-value-prediction/
 git clone https://github.com/racarrillo2/vancouver-property-value-prediction.git
 cd vancouver-property-value-prediction
 pip install -r requirements.txt
-streamlit run app/app.py
+streamlit run app/Dashboard.py
 ```
 
 ## 📈 Results
