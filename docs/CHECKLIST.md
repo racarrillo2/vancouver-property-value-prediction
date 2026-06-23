@@ -2,7 +2,7 @@
 
 > End-to-end roadmap for the data science portfolio project. Tracks progress from data acquisition to final presentation.
 
-**Last updated:** End of Phase 2 (EDA complete)
+**Last updated:** Phase 4 (Modeling complete) — app deployed
 
 ---
 
@@ -146,13 +146,13 @@
 
 📁 Folder: `app/`
 
-- [ ] `app/app.py` with the main application
+- [ ] `app/Dashboard.py` with the main application
 - [ ] **Page 1: Home** — project explanation, Vancouver context
 - [ ] **Page 2: Data explorer** — filters + interactive Folium map
 - [ ] **Page 3: Predictor** — input form + price estimation
 - [ ] **Page 4: Insights** — key EDA charts
 - [ ] Clean design (sidebar navigation, consistent colors)
-- [ ] Test locally with `streamlit run app/app.py`
+- [ ] Test locally with `streamlit run app/Dashboard.py`
 - [ ] **Deploy free on Streamlit Cloud** → public link for CV/LinkedIn
 
 **Deliverable:** working app + public link.

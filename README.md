@@ -58,7 +58,24 @@ streamlit run app/Dashboard.py
 
 ## 📈 Results
 
-*Coming soon — model metrics, feature importance, and dashboard screenshots.*
+**Final model:** XGBoost regressor (hyperparameter-tuned via RandomizedSearchCV)
+
+| Metric | Value |
+|---|---|
+| **R²** (test set) | **0.80** |
+| **MAE** (test set) | **$376,432 CAD** |
+| **RMSE** (test set) | **$857,255 CAD** |
+| **5-fold CV R²** | 0.798 ± 0.003 (stable) |
+
+### Top features by importance
+
+1. **Legal type** (STRATA vs LAND) — 77% importance
+2. **Neighbourhood** — 13%
+3. **Zoning classification** — 5%
+4. **Property age** — 3%
+5. **Years since last improvement** — 2%
+
+> The model performs best on mainstream Vancouver properties (1st–99th percentile). It tends to underestimate luxury properties above $5M due to missing physical features (lot size, square footage, view).
 
 ## 👤 Author
 
