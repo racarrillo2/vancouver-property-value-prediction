@@ -4,6 +4,8 @@
 
 Machine learning project that predicts property values in Vancouver, BC using open data from the City of Vancouver. Built as an end-to-end data science portfolio project: from data ingestion via public API to an interactive Streamlit dashboard.
 
+> 🌐 **Available in English and Spanish** — use the language selector in the sidebar.
+
 ## 🎯 Problem statement
 
 Vancouver has one of the most expensive real estate markets in North America. This project helps buyers, investors, and real estate professionals estimate whether a property is fairly priced based on its characteristics, location, and neighbourhood.
@@ -21,10 +23,12 @@ The dataset is not included in this repository due to file size limits.
 
 ## 🛠️ Tech stack
 
-- Python (pandas, scikit-learn)
-- Jupyter Notebooks
-- Streamlit + Folium (interactive map dashboard)
-- GitHub
+- **Python** — pandas, numpy, scikit-learn, XGBoost
+- **EDA** — Jupyter, matplotlib, seaborn
+- **App** — Streamlit + Plotly (interactive dashboard)
+- **Deployment** — Streamlit Community Cloud
+- **i18n** — bilingual support (EN/ES)
+- **Version control** — Git + GitHub
 
 ## 📁 Project structure
 
@@ -77,6 +81,7 @@ streamlit run app/Dashboard.py
 | **MAE** (test set) | **$376,432 CAD** |
 | **RMSE** (test set) | **$857,255 CAD** |
 | **5-fold CV R²** | 0.798 ± 0.003 (stable) |
+| **Training data** | 209,000 properties |
 
 ### Top features by importance
 
@@ -86,7 +91,14 @@ streamlit run app/Dashboard.py
 4. **Property age** — 3%
 5. **Years since last improvement** — 2%
 
-> The model performs best on mainstream Vancouver properties (1st–99th percentile). It tends to underestimate luxury properties above $5M due to missing physical features (lot size, square footage, view).
+### Key insights from the data
+
+- 📍 **Location is the #1 price driver** — property values vary by up to **7x** across Vancouver neighbourhoods (Shaughnessy $4.4M median vs East Hastings $0.65M median)
+- 🏘️ **STRATA vs LAND** are fundamentally different markets — captured as the strongest single feature
+- 🏛️ **Older isn't cheaper** — pre-1960 properties are valued ~2x higher than 1970–2000 builds (land value in established neighbourhoods)
+- 📊 The market is **heavily right-skewed**, justifying log-transformation of the target
+
+> The model performs best on mainstream Vancouver properties (1st–99th percentile). It tends to underestimate luxury properties above $5M due to missing physical features (lot size, square footage, view). Future iterations would integrate BC Assessment property dimensions and amenity proximity features.
 
 ## 👤 Author
 
