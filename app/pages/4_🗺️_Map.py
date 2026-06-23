@@ -16,8 +16,42 @@ import streamlit as st
 from folium.plugins import Fullscreen
 from streamlit_folium import st_folium
 
-from language_utils import language_selector, tr
+from language_utils import language_selector, get_lang
 from src.data_utils import load_processed_data
+
+_TEXTS = {
+    "title": {"en": "Vancouver Property Map", "es": "Mapa de Propiedades Vancouver"},
+    "subtitle": {
+        "en": "Explore median property values across Vancouver neighbourhoods. Darker areas indicate higher prices.",
+        "es": "Explora los valores medios de propiedades por barrio. Las areas mas oscuras indican precios mas altos.",
+    },
+    "filter_legal": {"en": "Filter by legal type", "es": "Filtrar por tipo legal"},
+    "filter_all": {"en": "All properties", "es": "Todas las propiedades"},
+    "legend_title": {"en": "Median value (CAD)", "es": "Valor mediano (CAD)"},
+    "tab_map": {"en": "Map", "es": "Mapa"},
+    "tab_data": {"en": "Neighbourhood data", "es": "Datos por barrio"},
+    "neighbourhood": {"en": "Neighbourhood", "es": "Barrio"},
+    "median_value": {"en": "Median value", "es": "Valor mediano"},
+    "property_count": {"en": "Properties", "es": "Propiedades"},
+    "mapped": {
+        "en": "properties mapped to official boundaries",
+        "es": "propiedades mapeadas a limites oficiales",
+    },
+    "unmapped": {
+        "en": "properties not mapped (sub-neighbourhoods under parent areas)",
+        "es": "propiedades no mapeadas (sub-areas agrupadas en barrios padres)",
+    },
+    "note": {
+        "en": "**Note:** Some neighbourhoods in the data (e.g., Coal Harbour, Yaletown, False Creek) are sub-districts within larger City of Vancouver official boundaries. Properties in those areas are grouped into their parent neighbourhood for mapping.",
+        "es": "**Nota:** Algunos barrios en los datos (ej. Coal Harbour, Yaletown, False Creek) son sub-areas dentro de los limites oficiales de Vancouver. Las propiedades en esas areas se agrupan en el barrio padre para el mapa.",
+    },
+}
+
+
+def txt(key):
+    lang = get_lang()
+    return _TEXTS.get(key, {}).get(lang, _TEXTS.get(key, {}).get("en", key))
+
 
 st.set_page_config(page_title="Property Map", page_icon="🗺️", layout="wide")
 language_selector()
@@ -121,7 +155,7 @@ def build_map(_agg_data, _geojson):
     )
     Fullscreen().add_to(m)
 
-    choropleth = folium.Choropleth(
+    folium.Choropleth(
         geo_data=_geojson,
         name="choropleth",
         data=_agg_data,
@@ -130,7 +164,7 @@ def build_map(_agg_data, _geojson):
         fill_color="YlOrRd",
         fill_opacity=0.7,
         line_opacity=0.3,
-        legend_name=tr("map_legend_title"),
+        legend_name=txt("legend_title"),
         highlight=True,
         bins=7,
     ).add_to(m)
@@ -145,7 +179,7 @@ def build_map(_agg_data, _geojson):
                 f"Median: ${r['median_value']:,.0f}<br>"
                 f"Mean: ${r['mean_value']:,.0f}<br>"
                 f"Properties: {r['count']:,.0f}<br>"
-                f"Range: ${r['min_value']:,.0f} – ${r['max_value']:,.0f}"
+                f"Range: ${r['min_value']:,.0f} - ${r['max_value']:,.0f}"
             )
         else:
             tooltip_text = f"<b>{name}</b><br>No data"
@@ -166,45 +200,47 @@ def build_map(_agg_data, _geojson):
 # ============================================================
 # Page layout
 # ============================================================
-st.title(tr("map_title"))
-st.markdown(tr("map_subtitle"))
+st.title(txt("title"))
+st.markdown(txt("subtitle"))
 
 col_filter, _ = st.columns([3, 7])
 with col_filter:
     legal_type = st.selectbox(
-        tr("map_filter_legal"),
+        txt("filter_legal"),
         options=["ALL", "STRATA", "LAND"],
-        format_func=lambda x: tr("map_filter_all") if x == "ALL" else x,
+        format_func=lambda x: txt("filter_all") if x == "ALL" else x,
     )
 
 agg_data, mapped_count, unmapped_count = prepare_map_data(legal_type)
 
-tab_map, tab_data = st.tabs([tr("map_tab_map"), tr("map_tab_data")])
+tab_map, tab_data = st.tabs([txt("tab_map"), txt("tab_data")])
 
 with tab_map:
     m = build_map(agg_data, load_geojson())
     st_folium(m, use_container_width=True, height=600)
 
     st.caption(
-        f"✅ {mapped_count:,.0f} {tr('map_mapped')} &nbsp;·&nbsp; "
-        f"ℹ️ {unmapped_count:,.0f} {tr('map_unmapped')}"
+        f"{mapped_count:,.0f} {txt('mapped')}  |  "
+        f"{unmapped_count:,.0f} {txt('unmapped')}"
     )
-    st.info(tr("map_note"), icon="ℹ️")
+    st.info(txt("note"), icon=None)
 
 with tab_data:
-    lang = st.session_state.get("lang", "en")
+    lang = get_lang()
     display_df = agg_data.rename(
         columns={
-            "geo_name": tr("map_neighbourhood"),
-            "median_value": tr("map_median_value"),
-            "count": tr("map_property_count"),
+            "geo_name": txt("neighbourhood"),
+            "median_value": txt("median_value"),
+            "count": txt("property_count"),
         }
     )
-    display_df[tr("map_median_value")] = display_df[tr("map_median_value")].apply(
+    display_df[txt("median_value")] = display_df[txt("median_value")].apply(
         lambda x: f"${x:,.0f}"
     )
+    col_order = [txt("neighbourhood"), txt("property_count"), txt("median_value")]
+    remaining = [c for c in display_df.columns if c not in col_order]
     st.dataframe(
-        display_df.sort_values(tr("map_median_value"), ascending=False),
+        display_df[col_order + remaining],
         use_container_width=True,
         hide_index=True,
     )
