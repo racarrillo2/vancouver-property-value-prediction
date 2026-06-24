@@ -2,6 +2,7 @@
 Insights page — interactive visualizations of key findings from the EDA.
 """
 
+import json
 import sys
 from pathlib import Path
 
@@ -14,6 +15,7 @@ import numpy as np
 import plotly.express as px
 from language_utils import language_selector, tr
 from src.data_utils import load_processed_data
+from src.config import PERM_IMPORTANCE_PATH
 
 # ============================================================
 # Page config
@@ -133,6 +135,47 @@ fig4.add_vline(x=median_val, line_dash="dash", line_color="red",
                annotation_position="top right")
 fig4.update_layout(margin=dict(l=0, r=0, t=20, b=0))
 st.plotly_chart(fig4, use_container_width=True)
+
+st.divider()
+
+# ============================================================
+# Insight 5 — Permutation importance
+# ============================================================
+st.header(tr("ins_5_title"))
+st.markdown(tr("ins_5_text"))
+
+perm_path = Path(__file__).parent.parent.parent / PERM_IMPORTANCE_PATH
+try:
+    with open(perm_path, "r") as f:
+        perm_data = json.load(f)
+    imp_items = sorted(
+        perm_data["importance"].items(),
+        key=lambda x: x[1]["mean"],
+        reverse=True,
+    )
+    imp_df = pd.DataFrame(
+        {
+            tr("ins_5_ylabel"): [k.replace("_", " ").title() for k, _ in imp_items],
+            tr("ins_5_xlabel"): [v["mean"] for _, v in imp_items],
+        }
+    )
+    fig5 = px.bar(
+        imp_df,
+        x=tr("ins_5_xlabel"),
+        y=tr("ins_5_ylabel"),
+        orientation="h",
+        color=tr("ins_5_xlabel"),
+        color_continuous_scale="Viridis",
+        height=350,
+    )
+    fig5.update_layout(
+        yaxis={"categoryorder": "total ascending"},
+        coloraxis_showscale=False,
+        margin=dict(l=0, r=0, t=10, b=0),
+    )
+    st.plotly_chart(fig5, use_container_width=True)
+except (FileNotFoundError, KeyError) as e:
+    st.caption(f"*Permutation importance cache not available. Run the data preparation script first.*")
 
 st.divider()
 st.subheader(tr("ins_summary_title"))

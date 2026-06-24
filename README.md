@@ -2,7 +2,7 @@
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://vancouver-property-value-prediction.streamlit.app)
 
-Machine learning project that predicts property values in Vancouver, BC using open data from the City of Vancouver. Built as an end-to-end data science portfolio project: from data ingestion via public API to an interactive Streamlit dashboard.
+Machine learning project that predicts property values in Vancouver, BC using open data from the City of Vancouver. Built as an end-to-end data science portfolio project: from open data download to an interactive Streamlit dashboard.
 
 > 🌐 **Available in English and Spanish** — use the language selector in the sidebar.
 
@@ -45,14 +45,15 @@ vancouver-property-value-prediction/
 │       ├── 2_📊_Insights.py     # EDA insights & charts
 │       └── 3_👤_About.py        # Project info & author
 ├── data/
-│   ├── raw/             # Original data from City of Vancouver API
+│   ├── raw/             # Original data from City of Vancouver Open Data Portal
 │   └── processed/       # Cleaned data ready for modeling
 ├── docs/                # Documentation & presentation deck
 │   ├── CHECKLIST.md
 │   └── PRESENTATION.md
 ├── models/              # Trained models (.pkl, .joblib)
 │   ├── best_model.pkl
-│   └── model_metadata.pkl
+│   ├── model_metadata.pkl
+│   └── permutation_importance.json
 ├── notebooks/           # Jupyter notebooks (phases 0–3)
 │   ├── 00_data_understanding.ipynb
 │   ├── 01_eda.ipynb
@@ -93,25 +94,32 @@ streamlit run app/Dashboard.py
 | **R²** (test set) | **0.80** |
 | **MAE** (test set) | **$376,432 CAD** |
 | **RMSE** (test set) | **$857,255 CAD** |
+| **MAPE** (test set) | **15.6%** (median percentage error) |
 | **5-fold CV R²** | 0.798 ± 0.003 (stable) |
 | **Training data** | 209,000 properties |
 
 ### Top features by importance
 
-1. **Legal type** (STRATA vs LAND) — 77% importance
-2. **Neighbourhood** — 13%
-3. **Zoning classification** — 5%
-4. **Property age** — 3%
-5. **Years since last improvement** — 2%
+*Using permutation importance (scikit-learn), which is more reliable than XGBoost's built-in importance for datasets with categorical features. Values show the drop in R² when each feature is randomly shuffled — higher = more important.*
+
+| Feature | R² drop | Normalized importance |
+|---------|--------:|---------------------:|
+| **Legal type** (STRATA vs LAND) | 1.273 | **50.0%** |
+| **Neighbourhood** | 0.500 | **19.6%** |
+| **Years since improvement** | 0.294 | 11.5% |
+| **Zoning classification** | 0.281 | 11.0% |
+| **Property age** | 0.201 | 7.9% |
+
+**Legal type is ~2.55× more important than neighbourhood**, confirming that Vancouver's market is primarily segmented by property type (condo vs land), with location as the strong secondary driver.
 
 ### Key insights from the data
 
-- 📍 **Location is the #1 price driver** — property values vary by up to **7x** across Vancouver neighbourhoods (Shaughnessy $4.4M median vs East Hastings $0.65M median)
+- 📍 **Location drives massive price variance** — property values vary by up to **7x** across Vancouver neighbourhoods (Shaughnessy $4.4M median vs East Hastings $0.65M median), but **legal type (STRATA vs LAND)** is the model's single strongest predictor (~2.55× more important than neighbourhood)
 - 🏘️ **STRATA vs LAND** are fundamentally different markets — captured as the strongest single feature
 - 🏛️ **Older isn't cheaper** — pre-1960 properties are valued ~2x higher than 1970–2000 builds (land value in established neighbourhoods)
 - 📊 The market is **heavily right-skewed**, justifying log-transformation of the target
 
-> The model performs best on mainstream Vancouver properties (1st–99th percentile). It tends to underestimate luxury properties above $5M due to missing physical features (lot size, square footage, view). Future iterations would integrate BC Assessment property dimensions and amenity proximity features.
+> The model was trained on mainstream Vancouver properties (1st–99th percentile, excluding the top 1% of extreme values). This limits accuracy on luxury properties above ~$5M. Future iterations would integrate BC Assessment property dimensions and amenity proximity features.
 
 ## 👤 Author
 

@@ -47,11 +47,12 @@ with st.sidebar:
 st.title(tr("home_title"))
 st.markdown(tr("home_subtitle"))
 
-col1, col2, col3, col4 = st.columns(4)
+col1, col2, col3, col4, col5 = st.columns(5)
 col1.metric(tr("metric_r2"), "0.80")
 col2.metric(tr("metric_mae"), "$376K")
-col3.metric(tr("metric_training"), tr("metric_training_value"))
-col4.metric(tr("metric_cv"), "0.003")
+col3.metric(tr("metric_mape"), "15.6%")
+col4.metric(tr("metric_training"), tr("metric_training_value"))
+col5.metric(tr("metric_cv"), "0.003")
 
 st.divider()
 

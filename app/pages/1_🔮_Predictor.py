@@ -14,7 +14,7 @@ import numpy as np
 from language_utils import language_selector, tr, get_lang
 from translations import display_value, LEGAL_TYPE_DISPLAY, ZONING_DISPLAY
 from src.model_utils import load_model_and_metadata
-from src.config import CURRENT_YEAR, MAE
+from src.config import CURRENT_YEAR, MAE, CONFIDENCE_PCT
 
 # ============================================================
 # Page config
@@ -115,26 +115,24 @@ if predict_button:
     log_prediction = model.predict(input_data)[0]
     prediction_dollars = np.expm1(log_prediction)
 
-    mae = MAE
-    lower_bound = max(0, prediction_dollars - mae)
-    upper_bound = prediction_dollars + mae
+    pct = CONFIDENCE_PCT / 100
+    lower_bound = max(0, prediction_dollars * (1 - pct))
+    upper_bound = prediction_dollars * (1 + pct)
 
     st.divider()
     st.subheader(tr("pred_result_title"))
 
     col_main, col_range = st.columns([2, 1])
     col_main.metric(tr("pred_predicted_label"), f"${prediction_dollars:,.0f} CAD")
-    col_range.metric(tr("pred_range_label"), f"${lower_bound:,.0f} — ${upper_bound:,.0f}")
+    col_range.metric(tr("pred_range_label", pct=CONFIDENCE_PCT), f"${lower_bound:,.0f} — ${upper_bound:,.0f}")
 
     st.markdown(tr("pred_explanation",
                    age=property_age,
                    legal_type=legal_type,
                    neighbourhood=neighbourhood,
                    zoning=zoning,
-                   value=prediction_dollars))
-
-    if prediction_dollars > 5_000_000:
-        st.warning(tr("pred_luxury_warning"), icon="⚠️")
+                   value=prediction_dollars,
+                   pct=CONFIDENCE_PCT))
 
 st.divider()
 st.caption(tr("pred_footer"))

@@ -26,6 +26,7 @@ TRANSLATIONS = {
     },
     "metric_r2": {"en": "Model R²", "es": "R² del modelo"},
     "metric_mae": {"en": "MAE", "es": "MAE"},
+    "metric_mape": {"en": "MAPE", "es": "MAPE"},
     "metric_training": {"en": "Training data", "es": "Datos de entrenamiento"},
     "metric_training_value": {"en": "209K properties", "es": "209K propiedades"},
     "metric_cv": {"en": "Cross-validation std", "es": "Desv. estándar CV"},
@@ -97,14 +98,14 @@ TRANSLATIONS = {
         "en": (
             "**Disclaimer:** this model is a portfolio project trained on publicly available "
             "data. Predictions are illustrative and should not be used for actual real estate "
-            "decisions. The model performs best on mainstream Vancouver properties (1st–99th percentile) "
-            "and underestimates luxury properties above $5M due to missing features (lot size, square footage, view)."
+            "decisions. The model was trained on mainstream Vancouver properties (1st\u201399th percentile, "
+            "excluding the top 1% of extreme values). This limits accuracy on luxury properties above ~$5M."
         ),
         "es": (
-            "**Aviso:** este modelo es un proyecto de portafolio entrenado con datos públicos. "
+            "**Aviso:** este modelo es un proyecto de portafolio entrenado con datos p\u00fablicos. "
             "Las predicciones son ilustrativas y no deben usarse para decisiones inmobiliarias reales. "
-            "El modelo funciona mejor con propiedades típicas de Vancouver (percentil 1-99) y "
-            "subestima propiedades de lujo por encima de los $5M por falta de features físicas (tamaño del lote, m², vistas)."
+            "El modelo se entren\u00f3 con propiedades t\u00edpicas de Vancouver (percentil 1-99, "
+            "excluyendo el 1% de valores extremos). Esto limita la precisi\u00f3n en propiedades de lujo por encima de ~$5M."
         )
     },
 
@@ -133,18 +134,14 @@ TRANSLATIONS = {
     "pred_button": {"en": "🔮 Predict property value", "es": "🔮 Predecir valor"},
     "pred_result_title": {"en": "💰 Estimated value", "es": "💰 Valor estimado"},
     "pred_predicted_label": {"en": "Predicted property value", "es": "Valor estimado de la propiedad"},
-    "pred_range_label": {"en": "Likely range (±MAE)", "es": "Rango probable (±MAE)"},
+    "pred_range_label": {"en": "Likely range (±{pct}%)", "es": "Rango probable (±{pct}%)"},
     "pred_explanation": {
-        "en": "**What this means:**\nBased on a {age}-year-old **{legal_type}** property in **{neighbourhood}** zoned as *{zoning}*, the model estimates a market value of **${value:,.0f} CAD**.\n\nThe likely range reflects the model's average error (MAE = $376K on the test set).",
-        "es": "**Qué significa esto:**\nPara una propiedad **{legal_type}** de {age} años en **{neighbourhood}** con zonificación *{zoning}*, el modelo estima un valor de mercado de **${value:,.0f} CAD**.\n\nEl rango probable refleja el error medio del modelo (MAE = $376K en el conjunto de prueba)."
-    },
-    "pred_luxury_warning": {
-        "en": "⚠️ This prediction is in the **luxury range ($5M+)**, where the model tends to underestimate values due to missing features (lot size, square footage, view). Treat this number as a conservative lower bound.",
-        "es": "⚠️ Esta predicción está en el **rango de lujo ($5M+)**, donde el modelo tiende a subestimar valores por falta de features (tamaño del lote, m², vistas). Considera este número como una cota inferior conservadora."
+        "en": "**What this means:**\nBased on a {age}-year-old **{legal_type}** property in **{neighbourhood}** zoned as *{zoning}*, the model estimates a market value of **${value:,.0f} CAD**.\n\nThe likely range uses the model's median error of ~{pct}% (MAPE), which is more realistic than a fixed dollar band for a log-transformed model.",
+        "es": "**Qu\u00e9 significa esto:**\nPara una propiedad **{legal_type}** de {age} a\u00f1os en **{neighbourhood}** con zonificaci\u00f3n *{zoning}*, el modelo estima un valor de mercado de **${value:,.0f} CAD**.\n\nEl rango probable usa el error mediano del modelo de ~{pct}% (MAPE), que es m\u00e1s realista que una banda fija en d\u00f3lares para un modelo log-transformado."
     },
     "pred_footer": {
-        "en": "Model: XGBoost regressor trained on 209,000 Vancouver property records (2026). R² = 0.80 · MAE = $376K · Source: City of Vancouver Open Data Portal.",
-        "es": "Modelo: regresor XGBoost entrenado con 209.000 registros de propiedades de Vancouver (2026). R² = 0,80 · MAE = $376K · Fuente: Portal de Datos Abiertos de Vancouver."
+        "en": "Model: XGBoost regressor trained on 209,000 Vancouver property records (2026). R² = 0.80 · MAE = $376K · MAPE = 15.6% · Source: City of Vancouver Open Data Portal.",
+        "es": "Modelo: regresor XGBoost entrenado con 209.000 registros de propiedades de Vancouver (2026). R² = 0,80 · MAE = $376K · MAPE = 15,6% · Fuente: Portal de Datos Abiertos de Vancouver."
     },
 
     # ============================================================
@@ -155,17 +152,17 @@ TRANSLATIONS = {
         "en": "Findings from analyzing **209,000 Vancouver properties** for the 2026 fiscal year. These insights drove the modeling decisions.",
         "es": "Resultados del análisis de **209.000 propiedades en Vancouver** para el año fiscal 2026. Estos hallazgos guiaron las decisiones del modelo."
     },
-    "ins_1_title": {"en": "1️⃣ Neighbourhood is the #1 price driver", "es": "1️⃣ El barrio es el factor #1 del precio"},
+    "ins_1_title": {"en": "1️⃣ Neighbourhood drives massive price variance", "es": "1️⃣ El barrio genera una gran variación de precios"},
     "ins_1_text": {
-        "en": "Property values vary by up to **7x** across Vancouver neighbourhoods. Location dominates every other factor.",
-        "es": "Los valores de propiedad varían hasta **7x** entre barrios de Vancouver. La ubicación domina cualquier otro factor."
+        "en": "Property values vary by up to **7x** across Vancouver neighbourhoods — the widest spread in the data. (In the model, legal type edges it out as the single strongest predictor, but location is a close second at 19.6%.)",
+        "es": "Los valores de propiedad varían hasta **7x** entre barrios de Vancouver — la mayor diferencia en los datos. (En el modelo, el tipo legal lo supera como predictor más fuerte, pero la ubicación es un sólido segundo lugar al 19,6%)."
     },
     "ins_1_xlabel": {"en": "Median property value (CAD millions)", "es": "Valor mediano (millones CAD)"},
     "ins_1_ylabel": {"en": "Neighbourhood", "es": "Barrio"},
     "ins_2_title": {"en": "2️⃣ STRATA vs LAND — two different markets", "es": "2️⃣ STRATA vs LAND — dos mercados distintos"},
     "ins_2_text": {
-        "en": "**STRATA** (condos/apartments) and **LAND** (full ownership) properties have fundamentally different price structures. The model identifies legal type as its dominant feature (77% importance).",
-        "es": "Las propiedades **STRATA** (condominios/apartamentos) y **LAND** (propiedad completa) tienen estructuras de precio fundamentalmente distintas. El modelo identifica el tipo legal como su feature dominante (77% de importancia)."
+        "en": "**STRATA** (condos/apartments) and **LAND** (full ownership) properties have fundamentally different price structures. The model identifies legal type as its strongest predictor using permutation importance (a more reliable measure than XGBoost's default importance).",
+        "es": "Las propiedades **STRATA** (condominios/apartamentos) y **LAND** (propiedad completa) tienen estructuras de precio fundamentalmente distintas. El modelo identifica el tipo legal como su predictor m\u00e1s fuerte usando permutaci\u00f3n de importancia (una medida m\u00e1s fiable que la importancia nativa de XGBoost)."
     },
     "ins_2_count_title": {"en": "Property count by legal type", "es": "Cantidad de propiedades por tipo legal"},
     "ins_2_median_title": {"en": "Median value by legal type", "es": "Valor mediano por tipo legal"},
@@ -185,10 +182,17 @@ TRANSLATIONS = {
     },
     "ins_4_xlabel": {"en": "Total property value (CAD)", "es": "Valor total (CAD)"},
     "ins_4_median_annotation": {"en": "Median: ${value:,.0f}", "es": "Mediana: ${value:,.0f}"},
+    "ins_5_title": {"en": "5️⃣ Feature importance — permutation method", "es": "5️⃣ Importancia de features — permutación"},
+    "ins_5_text": {
+        "en": "XGBoost's default `feature_importances_` artificially dilutes neighbourhood importance because one-hot encoding spreads it across many dummy columns. **Permutation importance** (scikit-learn) gives a more honest picture by measuring how much R² drops when each feature is randomly shuffled. Legal type is #1 (~2.55x more important at 50%), neighbourhood is a strong #2 at 19.6%.",
+        "es": "La importancia nativa de XGBoost (`feature_importances_`) diluye artificialmente la importancia del barrio porque el one-hot encoding la reparte entre muchas columnas dummy. La **importancia por permutación** (scikit-learn) da una visión más honesta al medir cuánto baja el R² cuando se mezcla aleatoriamente cada feature. El tipo legal es #1 (~2.55x mas importante al 50%), el barrio es un solido #2 al 19.6%."
+    },
+    "ins_5_ylabel": {"en": "Feature", "es": "Feature"},
+    "ins_5_xlabel": {"en": "Importance (drop in R² when shuffled)", "es": "Importancia (caída en R² al mezclar)"},
     "ins_summary_title": {"en": "🧠 What this means for the model", "es": "🧠 Qué implica esto para el modelo"},
     "ins_summary_text": {
-        "en": "These four insights shaped key modeling decisions:\n\n- **Log-transformed target** to handle the right-skewed distribution\n- **Tree-based models** (XGBoost, Random Forest) to capture non-linear age patterns\n- **Neighbourhood** as the primary categorical feature\n- **Legal type** as the strongest single predictor (77% feature importance)\n\nThe model achieves **R² = 0.80** on a held-out test set, with **MAE = $376K**.",
-        "es": "Estos cuatro hallazgos guiaron decisiones clave del modelo:\n\n- **Target log-transformado** para manejar la asimetría\n- **Modelos basados en árboles** (XGBoost, Random Forest) para capturar patrones no lineales de antigüedad\n- **Barrio** como feature categórica principal\n- **Tipo legal** como el predictor individual más fuerte (77% de importancia)\n\nEl modelo alcanza **R² = 0,80** en el conjunto de prueba, con **MAE = $376K**."
+        "en": "These insights shaped key modeling decisions:\n\n- **Log-transformed target** to handle the right-skewed distribution\n- **Tree-based models** (XGBoost) to capture non-linear patterns\n- **Permutation importance** for honest feature attribution (neighbourhood ranks #2 after legal type)\n\nThe model achieves **R² = 0.80** on a held-out test set, with **MAE = $376K** and **MAPE = 15.6%** (median percentage error).",
+        "es": "Estos hallazgos guiaron decisiones clave del modelo:\n\n- **Target log-transformado** para manejar la asimetría\n- **Modelos basados en árboles** (XGBoost) para capturar patrones no lineales\n- **Importancia por permutación** para atribución honesta de features (barrio ocupa el #2 después del tipo legal)\n\nEl modelo alcanza **R² = 0,80** en el conjunto de prueba, con **MAE = $376K** y **MAPE = 15,6%** (error porcentual mediano)."
     },
 
     # ============================================================
@@ -219,13 +223,13 @@ TRANSLATIONS = {
     },
     "about_perf_subtitle": {"en": "Performance", "es": "Rendimiento"},
     "about_perf_text": {
-        "en": "- **R²:** 0.80\n- **MAE:** $376,432 CAD\n- **RMSE:** $857,255 CAD\n- **5-fold CV:** R² = 0.798 ± 0.003 (stable)",
-        "es": "- **R²:** 0,80\n- **MAE:** $376.432 CAD\n- **RMSE:** $857.255 CAD\n- **CV 5-fold:** R² = 0,798 ± 0,003 (estable)"
+        "en": "- **R²:** 0.80\n- **MAE:** $376,432 CAD\n- **RMSE:** $857,255 CAD\n- **MAPE:** 15.6% (median percentage error)\n- **5-fold CV:** R² = 0.798 ± 0.003 (stable)",
+        "es": "- **R²:** 0,80\n- **MAE:** $376.432 CAD\n- **RMSE:** $857.255 CAD\n- **MAPE:** 15,6% (error porcentual mediano)\n- **CV 5-fold:** R² = 0,798 ± 0,003 (estable)"
     },
     "about_limits_subtitle": {"en": "Limitations", "es": "Limitaciones"},
     "about_limits_text": {
-        "en": "- Designed for mainstream properties (1st–99th percentile)\n- Underestimates luxury properties ($5M+) due to missing physical features\n- Future v2: integrate lot size, square footage, and proximity features",
-        "es": "- Diseñado para propiedades típicas (percentil 1-99)\n- Subestima propiedades de lujo ($5M+) por falta de features físicas\n- v2 futura: integrar tamaño del lote, m² y features de proximidad"
+        "en": "- Designed for mainstream properties (1st\u201399th percentile, top 1% of extreme values excluded)\n- The 1% exclusion limits accuracy on luxury properties above ~$5M\n- Future v2: integrate lot size, square footage, and proximity features",
+        "es": "- Dise\u00f1ado para propiedades t\u00edpicas (percentil 1-99, excluyendo el 1% de valores extremos)\n- La exclusi\u00f3n del 1% limita la precisi\u00f3n en propiedades de lujo >~$5M\n- v2 futura: integrar tama\u00f1o del lote, m\u00b2 y features de proximidad"
     },
     "about_links_title": {"en": "🔗 Links", "es": "🔗 Enlaces"},
     "about_link_code": {"en": "💻 View source code", "es": "💻 Ver código fuente"},

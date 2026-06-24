@@ -1,0 +1,46 @@
+{
+  "importance": {
+    "property_age": {
+      "mean": 0.2009,
+      "std": 0.0015
+    },
+    "years_since_improvement": {
+      "mean": 0.2941,
+      "std": 0.0028
+    },
+    "neighbourhood_name": {
+      "mean": 0.5,
+      "std": 0.0049
+    },
+    "legal_type": {
+      "mean": 1.2732,
+      "std": 0.0066
+    },
+    "zoning_classification": {
+      "mean": 0.2806,
+      "std": 0.0022
+    }
+  },
+  "individual": {
+    "property_age": {
+      "mean": 0.2009,
+      "std": 0.0015
+    },
+    "years_since_improvement": {
+      "mean": 0.2941,
+      "std": 0.0028
+    },
+    "neighbourhood_name": {
+      "mean": 0.5,
+      "std": 0.0049
+    },
+    "legal_type": {
+      "mean": 1.2732,
+      "std": 0.0066
+    },
+    "zoning_classification": {
+      "mean": 0.2806,
+      "std": 0.0022
+    }
+  }
+}

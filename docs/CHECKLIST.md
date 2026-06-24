@@ -64,7 +64,7 @@
 - [x] **7 key insights documented** for final presentation:
   1. Right-skewed target → log-transform
   2. STRATA vs LAND have different price structures
-  3. Neighbourhood = #1 price driver (7x ratio)
+  3. Neighbourhood drives 7x price variance (strongest spread in data; legal type surpasses it as the model's top predictor)
   4. Property age has step-pattern (pre/post 1970)
   5. Vancouver market is land-driven
   6. Significant price evolution 2020–2026

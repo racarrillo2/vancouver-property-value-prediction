@@ -93,14 +93,16 @@ Propiedades anteriores a 1960 valen ~2x más que las construidas entre 1970–20
 
 ## Slide 6 — Feature Importance: ¿Qué impulsa el precio?
 
-1. **Legal type (STRATA vs LAND)** — **77% de importancia** ⚡
-2. **Neighbourhood** — 13%
-3. **Zoning classification** — 5%
-4. **Property age** — 3%
-5. **Years since last improvement** — 2%
+1. **Legal type (STRATA vs LAND)** — **50.0%** ⚡
+2. **Neighbourhood** — **19.6%**
+3. **Years since last improvement** — 11.5%
+4. **Zoning classification** — 11.0%
+5. **Property age** — 7.9%
+
+> *Nota: Estos valores usan **permutation importance** (scikit-learn), que es más fiable que la importancia nativa de XGBoost. La importancia nativa diluía neighbourhood al dividirlo en 30+ columnas one-hot, mostrando erróneamente 77% para legal_type.*
 
 **Conclusión para el negocio:**
-El 90% del valor de una propiedad en Vancouver se explica por **qué tipo de propiedad es** + **dónde está ubicada**. Las características físicas (año, mejoras) tienen un impacto marginal.
+~70% del valor de una propiedad en Vancouver se explica por **qué tipo de propiedad es** + **dónde está ubicada**. Legal type es **~2.55× más importante** que neighbourhood. Las características físicas (año, mejoras) tienen un impacto marginal.
 
 Esto tiene sentido: en un mercado con escasez de suelo, la ubicación y el tipo de tenencia son los verdaderos drivers.
 
@@ -126,8 +128,8 @@ La app permite:
 ## Slide 8 — Limitaciones y Próximos Pasos
 
 ### Limitaciones actuales
-- **Sin datos físicos:** no tenemos sqft, número de habitaciones, lot size, view — esto limita el MAE
-- **Subestima propiedades de lujo** (>$5M): faltan features como vista al mar, acabados, tamaño de terreno
+- **Sin datos físicos:** No tenemos sqft, número de habitaciones, lot size, view — esto limitaría el MAE
+- **Rango acotado:** El modelo se entrenó con el percentil 1–99 (excluyendo el 1% de valores extremos), lo que limita la precisión en propiedades de lujo >~$5M
 - **Solo Vancouver:** no aplica a otras ciudades sin reentrenar
 
 ### Próximos pasos (si fuera producción)
@@ -174,6 +176,3 @@ R: Excluí `tax_levy` y las columnas `previous_*` del entrenamiento. El `tax_lev
 - **Duración:** 5 minutos — 30 segundos por slide
 - **NO muestres código** — nadie en una empresa quiere ver tu Jupyter Notebook
 - **La demo es lo más importante** — asegúrate de que la app funciona y tienes internet
-- **Si falla la demo**, ten capturas de pantalla preparadas en los slides
-- **Termina con una pregunta abierta** para invitar a la conversación, no con "gracias"
-- **Practica en voz alta** 3 veces mínimo antes del jueves
