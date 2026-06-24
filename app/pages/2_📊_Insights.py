@@ -6,8 +6,10 @@ import json
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).parent.parent))          # app/
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))   # root
+_ROOT = Path(__file__).resolve().parent.parent.parent
+_APP = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(_ROOT))
+sys.path.insert(0, str(_APP))
 
 import streamlit as st
 import pandas as pd

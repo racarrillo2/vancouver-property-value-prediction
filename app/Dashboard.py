@@ -6,8 +6,11 @@ Main entry point: project overview and navigation.
 import sys
 from pathlib import Path
 
-# Add app folder to path so we can import translations/i18n
-sys.path.insert(0, str(Path(__file__).parent))
+# Add app and root to path so pages can import from src/
+_ROOT = Path(__file__).resolve().parent.parent
+_APP = Path(__file__).resolve().parent
+sys.path.insert(0, str(_ROOT))
+sys.path.insert(0, str(_APP))
 
 import streamlit as st
 from language_utils import language_selector, tr
