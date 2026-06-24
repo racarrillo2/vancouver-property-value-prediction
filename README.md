@@ -34,24 +34,37 @@ The dataset is not included in this repository due to file size limits.
 
 ```
 vancouver-property-value-prediction/
+├── .devcontainer/       # Dev container configuration
+├── .streamlit/          # Streamlit Cloud config (theme, headless)
+├── app/                 # Streamlit dashboard
+│   ├── Dashboard.py     # Main entry point (home page)
+│   ├── language_utils.py  # Language selector & i18n helpers
+│   ├── translations.py  # Translation strings (EN/ES)
+│   └── pages/           # Multi-page app pages
+│       ├── 1_🔮_Predictor.py    # Property value predictor
+│       ├── 2_📊_Insights.py     # EDA insights & charts
+│       └── 3_👤_About.py        # Project info & author
 ├── data/
 │   ├── raw/             # Original data from City of Vancouver API
 │   └── processed/       # Cleaned data ready for modeling
-├── docs/                # Documentation
-├── notebooks/
+├── docs/                # Documentation & presentation deck
+│   ├── CHECKLIST.md
+│   └── PRESENTATION.md
+├── models/              # Trained models (.pkl, .joblib)
+│   ├── best_model.pkl
+│   └── model_metadata.pkl
+├── notebooks/           # Jupyter notebooks (phases 0–3)
 │   ├── 00_data_understanding.ipynb
 │   ├── 01_eda.ipynb
 │   ├── 02_preprocessing.ipynb
 │   └── 03_modeling.ipynb
-├── src/                 # Reusable code modules
+├── src/                 # Reusable Python package
+│   ├── __init__.py
 │   ├── config.py        # App constants (paths, year, MAE)
 │   ├── data_utils.py    # Data loading utilities
 │   └── model_utils.py   # Model loading utilities
-├── models/              # Trained models (.pkl)
-├── app/                 # Streamlit dashboard
-│   ├── Dashboard.py     # Main dashboard page
-│   ├── language_utils.py  # Language selector & i18n helpers
-│   └── translations.py  # Translation strings
+├── .gitignore
+├── LICENSE
 ├── requirements.txt
 └── README.md
 ```
