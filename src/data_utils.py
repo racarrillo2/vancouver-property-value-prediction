@@ -1,6 +1,6 @@
 import pandas as pd
 from pathlib import Path
-from .config import DATA_PATH
+from src.config import DATA_PATH
 
 
 def load_processed_data():

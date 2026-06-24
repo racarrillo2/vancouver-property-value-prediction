@@ -1,6 +1,6 @@
 from pathlib import Path
 import joblib
-from .config import MODEL_PATH, METADATA_PATH
+from src.config import MODEL_PATH, METADATA_PATH
 
 
 def load_model_and_metadata():

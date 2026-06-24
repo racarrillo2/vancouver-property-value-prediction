@@ -7,8 +7,6 @@ from pathlib import Path
 
 _ROOT = Path(__file__).resolve().parent.parent.parent
 _APP = Path(__file__).resolve().parent.parent
-_SRC = _ROOT / "src"
-sys.path.insert(0, str(_SRC))
 sys.path.insert(0, str(_ROOT))
 sys.path.insert(0, str(_APP))
 
@@ -17,8 +15,8 @@ import pandas as pd
 import numpy as np
 from language_utils import language_selector, tr, get_lang
 from translations import display_value, LEGAL_TYPE_DISPLAY, ZONING_DISPLAY
-from model_utils import load_model_and_metadata
-from config import CURRENT_YEAR, MAE, CONFIDENCE_PCT
+from src.model_utils import load_model_and_metadata
+from src.config import CURRENT_YEAR, MAE, CONFIDENCE_PCT
 
 # ============================================================
 # Page config
