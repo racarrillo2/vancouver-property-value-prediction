@@ -8,6 +8,8 @@ from pathlib import Path
 
 _ROOT = Path(__file__).resolve().parent.parent.parent
 _APP = Path(__file__).resolve().parent.parent
+_SRC = _ROOT / "src"
+sys.path.insert(0, str(_SRC))
 sys.path.insert(0, str(_ROOT))
 sys.path.insert(0, str(_APP))
 
@@ -16,8 +18,8 @@ import pandas as pd
 import numpy as np
 import plotly.express as px
 from language_utils import language_selector, tr
-from src.data_utils import load_processed_data
-from src.config import PERM_IMPORTANCE_PATH
+from data_utils import load_processed_data
+from config import PERM_IMPORTANCE_PATH
 
 # ============================================================
 # Page config

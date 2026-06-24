@@ -5,7 +5,7 @@ About page — project context, author info, and links.
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).parent.parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 import streamlit as st
 from language_utils import language_selector, tr
