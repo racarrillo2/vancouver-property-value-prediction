@@ -168,6 +168,10 @@ TRANSLATIONS = {
     "ins_2_median_title": {"en": "Median value by legal type", "es": "Valor mediano por tipo legal"},
     "ins_2_median_xlabel": {"en": "Median (CAD millions)", "es": "Mediana (millones CAD)"},
     "ins_2_median_ylabel": {"en": "Legal type", "es": "Tipo legal"},
+    "ins_2_other_note": {
+        "en": "Note: 'OTHER' is excluded from the median value chart \u2014 it represents less than 0.03% of properties (under 60 records), too small a sample to be statistically reliable.",
+        "es": "Nota: 'OTHER' se excluye del gr\u00e1fico de valor mediano \u2014 representa menos del 0.03% de las propiedades (menos de 60 registros), una muestra demasiado peque\u00f1a para ser estad\u00edsticamente confiable."
+    },
     "ins_3_title": {"en": "3️⃣ Older isn't cheaper — it's the opposite", "es": "3️⃣ Más antiguo NO significa más barato — al revés"},
     "ins_3_text": {
         "en": "Properties built **before 1960** are valued ~2x higher than those built after 1970. This isn't about the buildings — it's about the **land** in established neighbourhoods.",

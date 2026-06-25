@@ -89,7 +89,10 @@ with col1:
     st.plotly_chart(fig2a, use_container_width=True)
 
 with col2:
+    legal_counts_series = df['legal_type'].value_counts()
     legal_median = df.groupby('legal_type')['total_value'].median().reset_index()
+    legal_median['count'] = legal_median['legal_type'].map(legal_counts_series)
+    legal_median = legal_median.query('count >= 100')
     legal_median['median_millions'] = legal_median['total_value'] / 1e6
     legal_median_sorted = legal_median.sort_values('median_millions')
     fig2b = px.bar(legal_median_sorted,
@@ -100,6 +103,7 @@ with col2:
                    category_orders={'legal_type': legal_median_sorted['legal_type'].tolist()})
     fig2b.update_layout(showlegend=False, margin=dict(l=0, r=0, t=40, b=0))
     st.plotly_chart(fig2b, use_container_width=True)
+    st.caption(tr("ins_2_other_note"))
 
 st.divider()
 
