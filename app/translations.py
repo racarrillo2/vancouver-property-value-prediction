@@ -162,7 +162,7 @@ TRANSLATIONS = {
     "ins_2_title": {"en": "2️⃣ STRATA vs LAND — two different markets", "es": "2️⃣ STRATA vs LAND — dos mercados distintos"},
     "ins_2_text": {
         "en": "**STRATA** (condos/apartments) and **LAND** (full ownership) properties have fundamentally different price structures. The model identifies legal type as its strongest predictor using permutation importance (a more reliable measure than XGBoost's default importance).",
-        "es": "Las propiedades **STRATA** (condominios/apartamentos) y **LAND** (propiedad completa) tienen estructuras de precio fundamentalmente distintas. El modelo identifica el tipo legal como su predictor m\u00e1s fuerte usando permutaci\u00f3n de importancia (una medida m\u00e1s fiable que la importancia nativa de XGBoost)."
+        "es": "Al principio parec\u00eda que el tipo de propiedad explicaba casi todo el precio. Pero eso era un error de medici\u00f3n: el m\u00e9todo autom\u00e1tico subestimaba al barrio porque lo separa en muchas categor\u00edas chiquitas. Con un m\u00e9todo m\u00e1s justo, vimos que el tipo de propiedad sigue siendo lo m\u00e1s importante, pero el barrio tambi\u00e9n pesa fuerte \u2014 casi el 20% del precio."
     },
     "ins_2_count_title": {"en": "Property count by legal type", "es": "Cantidad de propiedades por tipo legal"},
     "ins_2_median_title": {"en": "Median value by legal type", "es": "Valor mediano por tipo legal"},

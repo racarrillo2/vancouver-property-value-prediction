@@ -17,6 +17,8 @@ from language_utils import language_selector, tr
 from data_utils import load_processed_data
 from config import PERM_IMPORTANCE_PATH
 
+DARK_BLUES = ['#0a2e5c', '#1a5a8a', '#2a86b8']
+
 # ============================================================
 # Page config
 # ============================================================
@@ -82,19 +84,21 @@ with col1:
     legal_counts.columns = ['legal_type', 'count']
     fig2a = px.pie(legal_counts, values='count', names='legal_type',
                    title=tr("ins_2_count_title"),
-                   color_discrete_sequence=px.colors.sequential.Blues_r)
+                   color_discrete_sequence=DARK_BLUES)
     fig2a.update_layout(margin=dict(l=0, r=0, t=40, b=0))
     st.plotly_chart(fig2a, use_container_width=True)
 
 with col2:
     legal_median = df.groupby('legal_type')['total_value'].median().reset_index()
     legal_median['median_millions'] = legal_median['total_value'] / 1e6
-    fig2b = px.bar(legal_median.sort_values('median_millions'),
+    legal_median_sorted = legal_median.sort_values('median_millions')
+    fig2b = px.bar(legal_median_sorted,
                    x='median_millions', y='legal_type', orientation='h',
                    title=tr("ins_2_median_title"),
                    labels={'median_millions': tr("ins_2_median_xlabel"), 'legal_type': tr("ins_2_median_ylabel")},
-                   color='median_millions', color_continuous_scale='Blues')
-    fig2b.update_layout(coloraxis_showscale=False, margin=dict(l=0, r=0, t=40, b=0))
+                   color='legal_type', color_discrete_sequence=DARK_BLUES,
+                   category_orders={'legal_type': legal_median_sorted['legal_type'].tolist()})
+    fig2b.update_layout(showlegend=False, margin=dict(l=0, r=0, t=40, b=0))
     st.plotly_chart(fig2b, use_container_width=True)
 
 st.divider()
